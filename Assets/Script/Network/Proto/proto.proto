@@ -1,0 +1,656 @@
+package msg;
+enum msg_id {
+	//心跳包
+	 ID_HeartBeat 		= 1;    
+	 //登陆     			
+     ID_Login   		= 2;	
+     //最新版本号
+     ID_SrvVersion 		=3;			
+     //服务器时间同步
+     ID_MsgServerTime =4;			
+      //角色信息申请
+      ID_PlayerInfo= 5; 		
+      //创建角色
+      ID_CreatePlayer = 6;			
+      //购买物品
+      ID_BuyItem = 7;
+      //使用物品
+      ID_UseItem=9;
+      //条框消息提示
+      ID_MsgTip = 10; 
+      //获取服务器压力较少的服务器
+      ID_GameServer=11; 
+      //vip信息
+      ID_VipInfo=12;
+      //领取时间金币
+      ID_GetTimeGold=13;
+      //邮件信息
+      ID_EmailData= 14;
+      //邮件信息修改
+      ID_Email= 15;
+      //读邮件
+      ID_ReadEmail=16;
+      //获取邮件附件
+      ID_GetEmailItem=17;
+      //删除邮件
+      ID_DeleteEmail=18;
+      //修改头像
+      ID_ModifyHead=20;
+      //修改名字
+      ID_ModifyNickName=21;
+      //转盘
+      ID_Rotate=22;
+      //成就
+      ID_Achievement=23;
+      //成就数据
+      ID_AchievementData=24;
+      //完成成就
+      ID_FinishAchievement=25;
+      //地图数据
+      ID_MapData=27;
+      //地图
+      ID_Map = 28;
+      //进入地图
+      ID_EnterMap= 29;
+      //退出地图
+      ID_ExitMap = 30;
+      //游戏中摇奖
+      ID_GameRotateStart = 31;
+      //摇奖结果
+      ID_GameRotateResult=32;
+      //摇奖结束 
+	  ID_GameRotateOver=33;
+	  //投入金币
+	  ID_ShotGold = 34;
+	  //减少桌面金币
+	  ID_ReduceGold=36;
+	  //中彩金转奖
+	  ID_PoolRotate=37;
+	  //道具
+	  ID_Item=38;
+	  ID_ItemData=39;  
+	  ID_DeleteItem=40;
+	  ID_ItemChange=41;
+	  //添加道具，调试用
+	  ID_AddItem=42;
+	  ID_AddCoins=43;
+	  ID_ShotResult=44;
+	  ID_PlayerDetail=45;
+	  ID_ShotBox=46;
+	  ID_ReqGold=47;
+	  ID_GoldChange=48;
+	  ID_AddExp=49;
+	  //转彩金结束发送
+	  ID_PoolRotateOver=50;
+	  //绑定账号
+	  ID_BindAccount=51;
+	  ID_DelAchievement=52;
+	  ID_GetMapReward=53;
+	  ID_RankData= 54;
+	  ID_Activity=55;
+	  ID_CsvActivity=56;
+	  ID_CsvActivityData=57;
+	  ID_FinishActivity=58;
+	  //购买订单
+	  ID_BuyBill=59;
+	  //领取免费定时金币
+	  ID_GetFreeGold=60;
+	  //一推到底结束
+	  ID_PushAll=61;
+	  //完成引导
+	  ID_FinishGuide=62;
+	  //激活码领取奖励
+	  ID_GetGiftWord=63;
+	  //删除活动
+	  ID_DelActivity=64;
+	  
+}
+
+message QuickRegister
+{
+	//注册账号
+	optional string account=1;
+	//密码
+	optional string passwd = 2;
+}
+
+message GameServer
+{
+	optional string ip = 1;
+	optional uint32 port = 2;
+}
+message RString
+{
+	optional string str=1;
+}
+message MsgTip
+{
+	//提示编号
+	optional uint32 tip =1;
+	//提示链接值 备用
+	repeated string value=2;
+	//提示类型 1是只有确定的窗口，2是有确定和取消窗口,3走马灯
+	optional uint32 type = 3;
+}
+message SrvVersion
+{
+	optional string version=1;
+}
+
+message Login
+ {
+	//用户账号
+	optional string account=1;
+	//密码 
+	optional string  password=2;
+	//登录返回结果：200登录成功，101账号不存在，102密码错误，103登录异常 
+	optional int32  result  = 3;	
+	//游客登录发送
+	optional uint32 accid=4;
+	//登录时间
+	optional uint32 logintime=5;
+	//登录平台编号：0 PC，101 google
+	optional uint32 pf = 6;	
+				
+}
+message Server
+{
+	optional uint32 _id=1;
+	optional string ip = 2;
+	optional uint32 port = 3;
+	optional string node = 4; 
+	optional uint32 type = 5;
+	optional uint32 num = 6;
+	optional uint32 flag = 7;
+	optional string name = 8;
+}
+
+message MsgServerTime{
+	optional uint32 servertime = 1;
+	//开服时间
+	optional uint32 start_time=2;
+}
+message Property
+{	
+	//属性类型：1篮筐减速，2自动生产，减时间等
+	optional uint32 type=1;
+	//属性值
+	optional uint32 value=2;
+}
+message PlayerInfo
+{
+	//玩家账号
+	optional string account=1;
+	//昵称
+	optional string nickname=2;
+	//当前金币数
+	optional uint32 gold=3;
+	//头像
+	optional uint32 head = 4;
+	//账号数字编号
+	optional uint32 accid =5;
+	//角色数字编号
+	optional uint32 player_id =6;
+	//经验
+	optional float exp =7;
+	//等级
+	optional uint32 lv =8;
+	//vip经验
+	optional float vip_exp=9;
+	//vip等级
+	optional uint32 vip_lv=10;
+	//服装
+	optional uint32 dress=11;
+	//彩金池
+	optional uint64 pool = 12;
+	//游戏属性
+	repeated Property prob= 13;
+	//解锁的面值
+	repeated uint32 unlock_gold=14;
+	//解锁的倍率
+	repeated uint32 unlock_rate =15;
+	//解锁的衣服
+	repeated uint32 unlock_clothes=16;
+	//解锁到的关卡
+	optional uint32 map_id =17;
+	//0新玩家,1老玩家
+	optional uint32 is_new=18;
+	//今天第一次登录0 不是，1是
+	optional uint32 is_first_login=19;
+	//签到:0已签，1未签
+	optional uint32 sign  = 20;
+	//在线定时金币
+	optional uint32 time_gold=21;
+	//新手引导
+	optional uint32 guide= 22;
+	//定时免费金币的下一次领取时间：
+	optional uint32 free_time=23;
+	optional uint32 vip_gift=24;
+	//0登录，1掉线重连
+	optional uint32 relogin=25;
+}
+//角色详细统计数据 
+message PlayerDetail
+{
+	optional string _id=1;
+	//玩家id
+	optional uint32 player_id=2;
+	//最高持有金币
+	optional uint32  most_coin_count=3;
+	//累计获得金币
+	optional uint32 collect_coin_count=4;
+	//购买服饰数量
+	optional uint32 get_cloth_count=5;
+	//累计消耗金币
+	optional uint32  cost_coin_count=6;
+	//累计投放金币
+	optional uint32 put_coin_count=7;
+	//多倍收集的次数
+	optional uint32 power_coin_times=8;
+	//一推到底次数
+	optional uint32 push_all_times=9;
+	//护墙次数
+	optional uint32 wall_times=10;
+	//冰地技能次数
+	optional uint32 freeze_collection_count=11;
+	//加速技能次数
+	optional uint32 accelerate_collection_count=12;
+	//震动技能次数
+	optional uint32 shark_collection_count=13;
+	//收集50金币次数
+	optional uint32 fifty_time=14;
+	//收集100金币次数
+	optional uint32 hundred_time=15;
+	//收集300金币次数
+	optional uint32 three_hundred_time=16;
+	//收集500金币次数
+	optional uint32 five_hundred_time=17;
+	//打击乌鸦次数
+	optional uint32 hit_crow_times=18;
+	//获得15秒免费次数
+	optional uint32 fifty_free_time=19;
+	//20秒免费次数
+	optional uint32 twenty_free_time= 20;
+	//彩金转盘次数
+	optional uint32 super_draw_times=21;
+	//转盘次数
+	optional uint32 rotate_times = 22;
+	
+}
+
+message CreatePlayer
+{
+	optional uint32 accid = 1;
+	//创建角色名字
+	optional string name = 2;
+	//性别
+	optional uint32 gender = 3;
+	//result = 1创建角色，2创建失败（昵称已经存在）,3系统异常
+	optional uint32 result = 4;
+}
+message VipInfo
+{
+	optional string _id = 1;
+	//玩家id
+	optional uint32 player_id = 2;
+	//玩家vip等级
+	optional uint32 lv = 3;
+	//玩家vip经验
+	optional uint32 exp = 4;
+	//总充值
+	optional uint32 rmb = 5;
+}
+message Item
+{
+	optional string _id= 1;
+	//玩家id
+	optional uint32 player_id= 2;
+	//道具编号
+	optional uint32 id = 3;
+	//道具数量
+	optional uint32 num = 4;
+}
+message ItemData
+{
+	repeated Item items=1;
+}
+message DeleteItem
+{
+	optional uint32 id = 1;
+}
+message UseItem
+{
+	optional uint32 id =1;
+	optional uint32 num= 2;
+	//使用结果：1使用成功，0使用失败
+	optional uint32 result=3;
+}
+message BuyItem
+{
+	optional uint32 id =1;
+}
+message Email
+{
+	optional string _id = 1;
+	//邮件编号
+	optional uint32 email_id = 2;
+	//发送者网络id
+	optional uint32 fid = 3;
+	//发送者名字
+	optional string fname= 4;
+	//接收者网络id
+	optional uint32 rid = 5;
+	//接收者名字
+	optional string rname = 6;
+	//邮件标题
+	optional string title = 7;
+	//邮件内容
+	optional string content= 8;
+	//邮件附件
+	repeated  Item  items = 9;
+	//邮件状态
+	optional uint32 state=10;
+	//邮件查看后延迟删除时间
+	optional uint32 delaytime = 11;
+	//邮件读取时间
+	optional uint32 readtime =12;
+	//邮件创建时间
+	optional uint32 createtime=13;
+	//邮件总存活时间
+	optional uint32 lifetime=14; 
+	//邮件类型 1普通邮件，2公告
+	optional uint32 type = 15;
+}
+message EmailData
+{
+	repeated Email emails=1;
+}
+
+message ReadEmail
+{
+	optional uint32 id = 1;
+}
+
+message GetEmailItem
+{
+	optional uint32 id = 1;
+}
+message DeleteEmail
+{
+	optional uint32 id =1;
+}
+
+message ModifyHead
+{
+	optional uint32 id =1;
+}
+message ModifyNickName
+{
+	optional string name=1;
+}
+message Rotate
+{
+	optional uint32 id =1;
+}
+message Sign
+{
+	optional uint32 week=1;
+	optional uint32 state=2;
+	optional uint32 value=3;
+}
+message SignInfo
+{
+	optional string _id=1;
+	optional uint32 player_id=2;
+	repeated Sign sign= 3;	
+}
+message BGold
+{
+	optional uint32 gold=1;
+	optional uint32 num =2;
+}
+message BoardGold
+{
+	//金币来源:1初始化,2投入，3彩金。。。
+	optional uint32 type=1;
+	repeated BGold golds=2;
+}
+message Coin
+{
+	//金币的网络id
+	optional uint32 id =1;
+	//金币的面值：
+	optional uint32 gold= 2;
+	//金币来源   2001
+	optional uint32 type= 3; 
+	//出现位置x
+	optional float x=4;
+	//出现位置y
+	optional float y=5;
+	//出现位置z
+	optional float z=6;
+	//coin状态:0,1不能再投中
+	optional uint32 state=7;
+}
+message Map 
+{
+	optional string _id=1;
+	//玩家编号
+	optional uint32 player_id = 2;
+	//地图编号
+	optional uint32 map_id = 3;
+	//是否解锁0,未解锁，1解锁
+	optional uint32 lock = 4;
+	//收集金币数
+	optional uint32 collect_gold=5;
+	//投入金币数 值为0时表示首次进入关卡
+	optional uint32 shot_gold=6;
+	//桌上金币值
+	optional uint32 board_gold=7;
+	//桌上金币分布
+	repeated Coin coins = 8;
+	//摇滚分值   满20分自动转
+	optional uint32 rotate_score=9;
+	//是否初始化 0初始化  1不初始化
+	optional uint32 flag = 10;
+	//关卡奖励0未领取，1已领取
+	optional uint32 reward=11;
+	
+}
+message MapData
+{
+	repeated Map maps= 1;
+}
+message Achievement
+{
+	optional string _id =1;
+	optional uint32 player_id=2;
+	//成就id
+	optional uint32 ach_id=3;
+	//完成数量
+	optional uint32 num = 4;
+	//状态0未完成，1已完成
+	optional uint32 state=5;
+}
+message AchievementData
+{
+	repeated Achievement achievements=1;
+}
+message FinishAchievement
+{
+	//成就编号
+	optional uint32 id=1;
+}
+message DelAchievement
+{
+	optional uint32 id = 1;
+}
+message EnterMap
+{
+	optional uint32 id = 1;
+	optional Map map = 2;
+}
+message GameRotateStart
+{
+	//摇奖方式：1自动转，2手动转
+	optional uint32 way=1;
+	//id 不为0表示测试结果
+	optional uint32 id =2;
+}
+message GameRotateResult
+{
+	optional uint32 id =1;
+	optional uint32 power=2;
+}
+
+message ShotGold
+{
+	//投币类型:1投篮，2砸箱子
+	optional uint32 type=1;
+	optional Coin coin = 2;
+}
+message ShotResult
+{
+	//投币类型:1投篮，2砸箱子
+	optional uint32 type=1;
+	//1投中币的id
+	optional Coin coin = 2;
+}
+message RGold
+{
+	//减少金币的网络id
+	optional uint32 id =1;
+	//减少方式：0流失，1-4 进洞编号
+	optional uint32 slot = 2;
+	//倍率
+	optional uint32 power = 3;
+	
+}
+message ReduceGold
+{
+	repeated RGold coins =2;
+}
+message PoolRotate
+{
+	optional uint32 id=1;
+}
+message ItemChange
+{
+	repeated Item items=1;
+}
+message AddItem
+{
+	optional uint32 id =1;
+	optional uint32 num = 2;
+}
+message AddCoins
+{
+	optional uint32 type=1;
+	repeated Coin coins=2;
+}
+message GoldChange
+{
+	//1签到，2进洞，3定时获得，4升级，5地图解锁,6充值购买,7投币,8购买物品
+	optional uint32 type=1;
+	//当前金币
+	optional int32 gold=2;
+	//进洞的位置
+	optional uint32 slot=3;
+}
+message AddExp
+{
+	optional uint32 exp = 1;
+}
+message BindAccount
+{
+	//绑定账号
+	optional uint32 account=1;
+	//密码
+	optional uint32 passwd = 2;
+	//绑定结果：0失败，1成功,2已经绑定有账号
+	optional uint32 result=3;
+}
+message GetMapReward
+{
+	optional uint32 id = 1;
+}
+message Rank
+{
+	optional uint32 player_id = 1;
+	optional string _id =2;
+	optional string name = 3;
+	optional uint32 head= 4;
+	optional uint32 lv = 5;
+	optional uint32 vip= 6;
+	optional uint32 gold = 7;
+}
+message RankData
+{
+	//排行前50名数据
+	repeated Rank ranks= 1;
+	//自己的位置
+	optional uint32 slot = 2;
+}
+message CsvActivity
+{
+	//活动id
+	optional uint32 id =1;
+	//活动名字
+	optional string name= 2;
+	//开始时间
+	optional uint32 start_time = 3;
+	//结束时间
+	optional uint32 over_time = 4;
+	//活动收集目标
+	optional uint32 target=5;
+	//活动数量
+	optional uint32 num = 6;
+	//活动奖励金币
+	optional uint32 gold= 7;
+	//描述
+	optional string desc=8;
+	//icon
+	optional string icon=9;
+}
+message CsvActivityData
+{
+	repeated CsvActivity activitys= 1;
+}
+message Activity
+{
+	optional string _id=1;
+	//玩家编号
+	optional uint32 player_id = 2;
+	//活动编号
+	optional uint32 id = 3;
+	//活动进度
+	optional uint32 num = 4;
+	//活动状态0 未完成，1可领，2已完成
+	optional uint32 state= 5;
+}
+message BuyBill
+{
+	//订单号
+	optional string _id=1;
+	//玩家
+	optional uint32 player_id=2;
+	//所在服务器
+	optional uint32 sn = 3;
+	//购买编号
+	optional uint32 buyid= 4;
+	//下订单时间
+	optional uint32 time= 5;
+	//订单价值 $美元
+	optional float money=6;
+	//获得金币
+	optional uint32 gold=7;
+	
+}
+message FinishGuide
+{
+	optional uint32 id = 1;
+}
+message GetGiftWord
+{
+	optional string word=1;
+}

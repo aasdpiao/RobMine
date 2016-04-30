@@ -1,0 +1,1 @@
+CodeGenerator.exe proto.proto
